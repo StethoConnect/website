@@ -7,7 +7,7 @@ function App() {
   
 
 <ul>
-  <li> 👨🏻‍💻 Checkout github Github <a href='https://github.com/StethoConnect/website.git'>here</a></li>
+  <li> 👨🏻‍💻 Checkout Github <a href='https://github.com/StethoConnect/website.git'>here</a></li>
   
 </ul>
   

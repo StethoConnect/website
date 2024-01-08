@@ -19,7 +19,7 @@ function App() {
           </ul>
         </div>
 <div className="container-fluid"> 
-        <img src="./src/img/sysd.png" alt="System Architecture" />
+        <img src="sysd.png" alt="System Architecture" />
       </div>
       </div>
     </div>

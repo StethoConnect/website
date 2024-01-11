@@ -18,9 +18,6 @@ function App() {
             </li>
           </ul>
         </div>
-<div className="container-fluid"> 
-        <img src="sysd.png" alt="System Architecture" />
-      </div>
       </div>
     </div>
   );

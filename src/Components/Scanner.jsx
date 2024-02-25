@@ -41,13 +41,14 @@ function Scanner() {
     }
   };
 
-  return (
+  return ( <div class="mt-10 flex items-center justify-center gap-x-6">
     <ul className="list-group">
       <li className="list-group-item">
         👨🏻‍💻 Checkout Github <a href="https://github.com/StethoConnect/website.git">here</a>
       </li>
       <li className="list-group-item">
-        <button onClick={scanForDevices} className="btn btn-primary">Scan for BLE Devices</button>
+        
+        <button onClick={scanForDevices} className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Scan for BLE Devices</button>
       </li>
       {devices.map((device, index) => (
         <li key={index} className="list-group-item">
@@ -63,6 +64,7 @@ function Scanner() {
         <li className="list-group-item">Connected to: {connectedDevice.name}</li>
       )}
     </ul>
+    </div>
   );
 }
 

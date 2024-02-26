@@ -1,27 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Scanner from "./Components/Scanner";
-
-import FooterSteth from './Components/FooterSteth.jsx'
-
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+import NoPage from './Components/Nopage';
+import Home from './Components/Home';
+import PatientDashboard from './Components/PatientDashboard'; // Adjust the path as necessary
+import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary
 
 function App() {
-
   return (
-<>
-    <div className="container mt-5">
-      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">StethoConnect</h1>
-      <div className="row mt-4">
-        <div className="col-md-6">
-          <p>Welcome to the official website of StethoConnect! Our project is a cost-effective digital stethoscope built with the help of TinyML, cloud technology, and web technology.</p>
-         
-
-         <Scanner />
-        </div>
-      </div>
-     
-    </div>
-
-    
+    <>
+      <BrowserRouter>
+        <nav className="bg-gray-800 text-white p-4">
+          <ul className="flex space-x-4">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/patient-dashboard" element={<PatientDashboard />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

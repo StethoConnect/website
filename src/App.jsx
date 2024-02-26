@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Scanner from "./Components/Scanner";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
-import NoPage from './Components/Nopage';
+import NoPage from './Components/NoPage';
 import Home from './Components/Home';
 import PatientDashboard from './Components/PatientDashboard'; // Adjust the path as necessary
 import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary

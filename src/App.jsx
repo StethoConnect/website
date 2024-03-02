@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Scanner from "./Components/Scanner";
+import {useSelector} from "react-redux";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import NoPage from './Components/NoPage';
@@ -9,6 +9,7 @@ import PatientDashboard from './Components/PatientDashboard'; // Adjust the path
 import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary
 
 function App() {
+const user= useSelector((state) => state.data.user)
   return (
     <>
       <BrowserRouter>

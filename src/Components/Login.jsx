@@ -26,7 +26,7 @@ function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data); // Handle success, store token, etc.
+        console.log(data.token.idToken); // Handle success, store token, etc.
 
         // Redirect to doctor dashboard
         navigate('/doctor-dashboard');
@@ -51,7 +51,7 @@ function Login() {
         </div>
         
         <div>
-          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password</label>
+          <label htmlFor="password"  className="block mb-2 text-sm font-medium text-gray-900">Password</label>
           <input id="password" value={password} onChange={(e) => setPassword(e.target.value)} type='password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
         </div>
         

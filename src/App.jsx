@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {useSelector} from "react-redux";
 import Login from "./Components/Login";
@@ -9,10 +9,16 @@ import PatientDashboard from './Components/PatientDashboard'; // Adjust the path
 import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary
 
 function App() {
-const user= useSelector((state) => state.data.user)
+const user= useSelector((state) => state.data.user.user);
+
   return (
+
     <>
-      <BrowserRouter>
+    {user ? (
+      <DoctorDashboard />
+
+    ):(
+       <BrowserRouter>
         <nav className="bg-gray-800 text-white p-4">
           <ul className="flex space-x-4">
             <li><Link to="/">Home</Link></li>
@@ -28,7 +34,9 @@ const user= useSelector((state) => state.data.user)
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter>) 
+    }
+     
     </>
   );
 }

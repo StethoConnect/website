@@ -7,6 +7,7 @@ function RecordAudio() {
   const [toggleState, setToggleState] = useState("left");
 
   const LiveAudio = async () => {
+    setIsRecording(true);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -40,6 +41,8 @@ function RecordAudio() {
     } catch (error) {
       console.error('Error accessing microphone:', error);
     }
+
+    setIsRecording(false);
   };
 
   const startRecording = async () => {

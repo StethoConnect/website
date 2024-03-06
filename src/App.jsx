@@ -5,9 +5,9 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import NoPage from './Components/NoPage';
 import Home from './Components/Home';
-import PatientDashboard from './Components/PatientDashboard'; // Adjust the path as necessary
 import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary
 import RecordAudio from "./Components/RecordAudio";
+import AddPatient from "./Components/AddPatient";
 
 function App() {
 const user= useSelector((state) => state.data.user.user);
@@ -31,10 +31,10 @@ const user= useSelector((state) => state.data.user.user);
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/patient-dashboard" element={<PatientDashboard />} />
+          <Route path="/add-patient" element={<AddPatient />} />
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="*" element={<NoPage />} />
-          <Route path="Record-Audio" element={<RecordAudio />} />
+          <Route path="record-audio" element={<RecordAudio />} />
         </Routes>
       </BrowserRouter>) 
     }

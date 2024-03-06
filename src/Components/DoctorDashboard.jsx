@@ -48,7 +48,7 @@ function DoctorDashboard() {
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Add new Patient Record </h2>
         <p class="text-gray-700 mb-4">Enter details of new patients</p>
         <div class="flex justify-end">
-          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mr-2">Add New</button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mr-2"onClick={()=>navigate('/add-patient') } >Add New</button>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@ function DoctorDashboard() {
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Record </h2>
         <p class="text-gray-700 mb-4">Record Audio from the stethoConnect steth</p>
         <div class="flex justify-end">
-          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mr-2"  onClick={()=>navigate('/Record-Audio') }>Record</button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mr-2"  onClick={()=>navigate('/record-audio') }>Record</button>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import NoPage from './Components/NoPage';
 import Home from './Components/Home';
 import PatientDashboard from './Components/PatientDashboard'; // Adjust the path as necessary
 import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary
+import RecordAudio from "./Components/RecordAudio";
 
 function App() {
 const user= useSelector((state) => state.data.user.user);
@@ -33,9 +34,11 @@ const user= useSelector((state) => state.data.user.user);
           <Route path="/patient-dashboard" element={<PatientDashboard />} />
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="Record-Audio" element={<RecordAudio />} />
         </Routes>
       </BrowserRouter>) 
     }
+    
      
     </>
   );

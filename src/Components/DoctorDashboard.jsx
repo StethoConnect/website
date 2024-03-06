@@ -8,14 +8,8 @@ function DoctorDashboard() {
 
   const navigate = useNavigate();
 
-  // Example data - replace with real data
-  const patients = ["Patient A", "Patient B"];
   // const user = useSelector((state) => state.data.user.user);
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [age, setAge] = useState();
-  const [remark, setRemark] = useState();
 
   return (
     <div className="container mx-auto p-4">

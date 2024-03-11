@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ngrok } from '../../ngrok';
+
 
 function Register() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name,setName] = useState('');
+
+
+
+
 
 
   const handleSubmit = async (e) => {
@@ -11,10 +20,13 @@ function Register() {
     const registrationData = { email,name, password };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/signup/', {
+      
+      const response = await fetch(ngrok + '/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "ngrok-skip-browser-warning": "69420",
+
         },
         body: JSON.stringify(registrationData),
       });
@@ -25,6 +37,8 @@ function Register() {
 
       const data = await response.json();
       console.log('Registration successful:', data);
+      navigate('/login')
+
     } catch (error) {
       console.error('Registration failed:', error);
     }

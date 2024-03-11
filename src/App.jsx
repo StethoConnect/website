@@ -22,6 +22,7 @@ const user= useSelector((state) => state.data.user.user);
        <BrowserRouter>
         <nav className="bg-gray-800 text-white p-4">
           <ul className="flex space-x-4">
+           
             <li><Link to="/">Home</Link></li>
             <li><Link to="/register">Register</Link></li>
             <li><Link to="/login">Login</Link></li>
@@ -35,6 +36,7 @@ const user= useSelector((state) => state.data.user.user);
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="*" element={<NoPage />} />
           <Route path="record-audio" element={<RecordAudio />} />
+
         </Routes>
       </BrowserRouter>) 
     }

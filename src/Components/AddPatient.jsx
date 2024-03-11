@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ngrok } from '../../ngrok';  
+
 
 function AddPatient() {
   const [patientInfo, setPatientInfo] = useState({
@@ -18,7 +20,7 @@ function AddPatient() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('http://127.0.0.1:8000/add-patient', {
+    const response = await fetch(ngrok +'/add-patient', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,6 +38,7 @@ function AddPatient() {
   };
 
   return (
+
     <div className="p-4 space-y-4 flex flex-col justify-center items-center">
       <h2 className="text-2xl font-bold">Add Patient Details</h2>
       <form onSubmit={handleSubmit}>
@@ -58,6 +61,7 @@ function AddPatient() {
       </div>
       </form>
     </div>
+
   );
 }
 

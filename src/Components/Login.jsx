@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, setLoading } from '../features/userSlice';
+import { ngrok } from '../../ngrok';
+
+
 
 function Login() {
 
 
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // State for form inputs
   const [email, setEmail] = useState('');
@@ -22,17 +25,21 @@ function Login() {
     const loginData = { email, password };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/login', {
+      const response = await fetch(ngrok + '/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "ngrok-skip-browser-warning": "69420",
+
         },
         body: JSON.stringify(loginData),
       });
 
       if (response.ok) {
         const data = await response.json();
-
+        console.log("login sucess:",data);
+    
+//updating response data 
         dispatch(
           loginUser(
             {

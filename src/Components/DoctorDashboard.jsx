@@ -12,6 +12,7 @@ function DoctorDashboard() {
 
 
   return (
+
     <div className="container mx-auto p-4">
       <h2 className="text-5xl text-center bg-black text-white ">Doctor Dashboard</h2>
       {/* <h1 className="px-4 font-mono font-bold">{user.displayName}</h1> */}

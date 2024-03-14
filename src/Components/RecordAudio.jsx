@@ -55,6 +55,8 @@ function RecordAudio() {
     
       if(response.status==200){
         setwave(true);
+        console.log(response)
+        response.blob().then(blob=> showInOtherTab(blob))
 
       } // Log the response from the server
     } catch (error) {
@@ -62,6 +64,11 @@ function RecordAudio() {
     }
   };
   
+  function showInOtherTab(blob) {
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
+
 
   const toggleLeft = () => {
     if (toggleState !== "left") {

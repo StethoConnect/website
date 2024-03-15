@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ngrok } from '../../ngrok';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 
 
 function Register() {
@@ -45,6 +47,15 @@ function Register() {
   };
 
   return (
+    <> 
+      <nav className="bg-gray-800 text-white p-4">
+          <ul className="flex space-x-4">
+           
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+        </nav>
     <div className="container mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Register Page</h2>
       <form onSubmit={handleSubmit} className='form space-y-3'>
@@ -91,6 +102,7 @@ function Register() {
         <button type="submit" className="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
       </form>
     </div>
+    </>
   );
 }
 

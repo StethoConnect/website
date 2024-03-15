@@ -1,8 +1,19 @@
 import React from "react";
 // import Scanner from "./Scanner";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 function Home() {
   return (
     <>
+     <nav className="bg-gray-800 text-white p-4">
+          <ul className="flex space-x-4">
+           
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+        </nav>
+        
       <div className="container mt-5">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">StethoConnect</h1>
         <div className="row mt-4">

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, setLoading } from '../features/userSlice';
 import { ngrok } from '../../ngrok';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 
 
@@ -63,6 +64,15 @@ function Login() {
   };
 
   return (
+    <> 
+        <nav className="bg-gray-800 text-white p-4">
+    <ul className="flex space-x-4">
+     
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/register">Register</Link></li>
+      <li><Link to="/login">Login</Link></li>
+    </ul>
+  </nav>
     <div className="container mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Doctor Login</h2>
 
@@ -83,6 +93,8 @@ function Login() {
         </button>
       </form>
     </div>
+    </>
+
   );
 }
 

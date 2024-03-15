@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Scanner from "./Scanner"; // Adjust the path as necessary
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import NavBar from "./NavBar";
 
 
 function DoctorDashboard() {
@@ -13,6 +14,10 @@ function DoctorDashboard() {
 
   return (
 
+
+
+    <> 
+    <NavBar />
     <div className="container mx-auto p-4">
       <h2 className="text-5xl text-center bg-black text-white ">Doctor Dashboard</h2>
       {/* <h1 className="px-4 font-mono font-bold">{user.displayName}</h1> */}
@@ -29,7 +34,7 @@ function DoctorDashboard() {
       </ul>
 
 {/* patient details  */}
-      <div class="container flex mx-auto  px-4 mt-8">
+      <div class="container flex flex-col mx-auto  px-4 mt-8">
     <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
       <div class="px-6 py-4">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Patient Details</h2>
@@ -72,8 +77,9 @@ function DoctorDashboard() {
   
 
      
-      <Scanner />
+      {/* <Scanner /> */}
     </div>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ngrok } from '../../ngrok';  
+import NavBar from './NavBar';
 
 
 function AddPatient() {
@@ -38,7 +39,8 @@ function AddPatient() {
   };
 
   return (
-
+<> 
+<NavBar />
     <div className="p-4 space-y-4 flex flex-col justify-center items-center">
       <h2 className="text-2xl font-bold">Add Patient Details</h2>
       <form onSubmit={handleSubmit}>
@@ -62,6 +64,7 @@ function AddPatient() {
       </form>
     </div>
 
+</>
   );
 }
 

@@ -8,9 +8,10 @@ import Home from './Components/Home';
 import DoctorDashboard from './Components/DoctorDashboard'; // Adjust the path as necessary
 import RecordAudio from "./Components/RecordAudio";
 import AddPatient from "./Components/AddPatient";
-import MyComponent from "./Components/MyComponent";
+
 import AudioPlayer from "./Components/AudioPlayer";
 import ProcessAudio from "./Components/ProcessAudio";
+import GetPatient from "./Components/GetPatient";
 
 function App() {
 const user= useSelector((state) => state.data.user.user);
@@ -32,10 +33,11 @@ const user= useSelector((state) => state.data.user.user);
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="*" element={<NoPage />} />
           <Route path="record-audio" element={<RecordAudio />} />
-          <Route path="my" element={<MyComponent />} />
+
           <Route path="process-audio" element={<ProcessAudio />} />
 
           <Route path="audio" element={<AudioPlayer/>} />
+          <Route path="patient-details" element={<GetPatient/>} />
         </Routes>
       </BrowserRouter>) 
     }

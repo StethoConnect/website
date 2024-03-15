@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import NavBar from "./NavBar";
+import { ngrok } from "../../ngrok";
 
 
 function RecordAudio() {
@@ -52,12 +53,38 @@ const navi = useNavigate();
     document.body.removeChild(link);
   };
 
-  const ProcessAudio= ()=>{
-    handleDownload();
-navi("/process-audio")
-
-    
-  }
+  const ProcessAudio = async () => {
+    try {
+      // Check if audioURL is available
+      if (audioURL) {
+        const blob = await fetch(audioURL).then(response => response.blob());
+        const formData = new FormData();
+        formData.append('audio', blob, 'recording.wav'); // Append the .wav file to FormData
+  
+        // Making a POST request to the FastAPI endpoint for processing
+        const processingResponse = await fetch(ngrok+'/classify_heart_audio/', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        // Handle processingResponse accordingly
+        if (processingResponse.ok) {
+          console.log(await processingResponse.text())
+          setClassification(JSON.parse((await processingResponse.json()).prediction));
+          // Redirect or perform any other action upon successful processing
+          navi("/process-audio");
+        } else {
+          // Handle error response
+          console.error('Error processing audio:', processingResponse.statusText);
+        }
+      } else {
+        console.error('No audio URL available.');
+      }
+    } catch (error) {
+      console.error('Error processing audio:', error);
+    }
+  };
+  
 
   const toggleLeft = () => {
     if (toggleState !== "left") {
@@ -106,16 +133,19 @@ navi("/process-audio")
         {recStatus && (
           wave ? (
             <>
-              <h1>Audio Recorded sucessfully.</h1>
+            
+              <h1 className=" m-0">Audio Recorded sucessfully.</h1>
+            <div className="flex justify-between p-10 flex-col "> 
               <button onClick={handleDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
                 Download Recording
               </button>
               <button onClick={ProcessAudio} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
 Process Audio
               </button>
+              </div>
             </>
           ) : (
-            <h1>Recording in progress...</h1>
+            <h1 className = " m-16">Recording in progress...</h1>
           )
         )}
       </div>

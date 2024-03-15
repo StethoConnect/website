@@ -40,7 +40,7 @@ function DoctorDashboard() {
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Patient Details</h2>
         <p class="text-gray-700 mb-4">View Previous/current patients details</p>
         <div class="flex justify-end">
-          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mr-2">view</button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mr-2" onClick={()=>navigate('/patient-details') }>view</button>
         </div>
       </div>
     </div>

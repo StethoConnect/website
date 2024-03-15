@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from "./NavBar";
 import { ngrok } from "../../ngrok";
 
-
 function RecordAudio() {
-const navi = useNavigate();
-
+  const navi = useNavigate();
   const [isRecording, setIsRecording] = useState(false);
   const [wave, setWave] = useState(false);
   const [recStatus, setRecStatus] = useState(false);
@@ -14,16 +12,16 @@ const navi = useNavigate();
   const [audioURL, setAudioURL] = useState(null);
 
   const LiveAudio = async () => {
-    setIsRecording(true);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const audioPlayer = new Audio();
-      audioPlayer.srcObject = stream;
-      audioPlayer.play();
-    } catch (error) {
-      console.error('Error accessing microphone:', error);
-    }
-    setIsRecording(false);
+    // setIsRecording(true);
+    // try {
+    //   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    //   const audioPlayer = new Audio();
+    //   audioPlayer.srcObject = stream;
+    //   audioPlayer.play();
+    // } catch (error) {
+    //   console.error('Error accessing microphone:', error);
+    // }
+    // setIsRecording(false);
   };
 
   const startRecording = async () => {
@@ -45,46 +43,39 @@ const navi = useNavigate();
   };
   
   const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = audioURL;
-    link.download = "Recording.wav";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // const link = document.createElement("a");
+    // link.href = audioURL;
+    // link.download = "Recording.wav";
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
   };
 
   const ProcessAudio = async () => {
-    try {
-      // Check if audioURL is available
-      if (audioURL) {
-        const blob = await fetch(audioURL).then(response => response.blob());
-        const formData = new FormData();
-        formData.append('audio', blob, 'recording.wav'); // Append the .wav file to FormData
+    // try {
+    //   if (audioURL) {
+    //     const blob = await fetch(audioURL).then(response => response.blob());
+    //     const formData = new FormData();
+    //     formData.append('audio', blob, 'recording.wav');
   
-        // Making a POST request to the FastAPI endpoint for processing
-        const processingResponse = await fetch(ngrok+'/classify_heart_audio/', {
-          method: 'POST',
-          body: formData,
-        });
+    //     const processingResponse = await fetch(ngrok+'/classify_heart_audio/', {
+    //       method: 'POST',
+    //       body: formData,
+    //     });
   
-        // Handle processingResponse accordingly
-        if (processingResponse.ok) {
-          console.log(await processingResponse.text())
-          setClassification(JSON.parse((await processingResponse.json()).prediction));
-          // Redirect or perform any other action upon successful processing
-          navi("/process-audio");
-        } else {
-          // Handle error response
-          console.error('Error processing audio:', processingResponse.statusText);
-        }
-      } else {
-        console.error('No audio URL available.');
-      }
-    } catch (error) {
-      console.error('Error processing audio:', error);
-    }
+    //     if (processingResponse.ok) {
+    //       const { predicted_label } = await processingResponse.json();
+    //       navi("/process-audio", { predictedLabel: predicted_label });
+    //     } else {
+    //       console.error('Error processing audio:', processingResponse.statusText);
+    //     }
+    //   } else {
+    //     console.error('No audio URL available.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error processing audio:', error);
+    // }
   };
-  
 
   const toggleLeft = () => {
     if (toggleState !== "left") {
@@ -100,7 +91,7 @@ const navi = useNavigate();
 
   return (
     <> 
-    <NavBar />
+      <NavBar />
       <div className="flex justify-center text-9xl bg-black text-white m-0 p-5 mb-40"> Record Audio</div>
       <div className="flex justify-center text-2xl mx-8 my-2">Here you can listen to live audio, record audio in wave format, and process the audio as well using our ML models.</div>
       <div className="flex flex-col items-center">
@@ -133,15 +124,18 @@ const navi = useNavigate();
         {recStatus && (
           wave ? (
             <>
-            
-              <h1 className=" m-0">Audio Recorded sucessfully.</h1>
-            <div className="flex justify-between p-10 flex-col "> 
-              <button onClick={handleDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
-                Download Recording
-              </button>
-              <button onClick={ProcessAudio} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
-Process Audio
-              </button>
+              <h1 className=" m-0">Audio Recorded successfully.</h1>
+              <div className="flex justify-between p-10 flex-col "> 
+
+               { /* <button onClick={handleDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
+                  Download Recording
+                </button>*/
+}
+
+
+                <button onClick={()=>navi('/process-audio')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
+                  Process Audio
+                </button>
               </div>
             </>
           ) : (

@@ -1,44 +1,25 @@
 import NavBar from "./NavBar";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 function ProcessAudio() {
-  const [recording, setRecording] = useState(null);
   const [predictedLabel, setPredictedLabel] = useState({
-    heart:null ,
+    heart: null,
     lungs: null,
     status: false,
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!file) {
-      console.log("No file selected");
-      return;
-    } else {
-      // Handle file upload and processing here
-    }
-  };
-
-  const handleOnChange = (e) => {
-    setRecording(e.target.files[0]);
-    console.log("File selected", recording);
-  };
-
-  
   const lungsSoundPrediction = async () => {
     try {
       const response = await fetch("http://127.0.0.1:5100/predictLungs", {
         method: "POST",
       });
 
-      if (response.status == 200) {
-        let data = await response.json();
-        console.log(data.result);
-        //update the predicted label heart and update the status to true
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
         setPredictedLabel((prev) => ({
           ...prev,
-          lungs: data.result,
+          lungs: data.predicted_class_label || null,
           status: true,
         }));
       } else {
@@ -48,19 +29,19 @@ function ProcessAudio() {
       console.log(e);
     }
   };
+
   const heartSoundPrediction = async () => {
     try {
       const response = await fetch("http://127.0.0.1:5100/predictHeart", {
         method: "POST",
       });
 
-      if (response.status == 200) {
-        let data = await response.json();
-        console.log(data.result);
-        //update the predicted label heart and update the status to true
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
         setPredictedLabel((prev) => ({
           ...prev,
-          heart: data.result,
+          heart: data.predicted_label || null,
           status: true,
         }));
       } else {
@@ -71,61 +52,90 @@ function ProcessAudio() {
     }
   };
 
+  const downloadAudio = () => {
+    const link = document.createElement("a");
+    link.href = "http://127.0.0.1:5100/download";
+    link.download = "recording.wav";
+    link.click();
+  };
+
   return (
     <>
       <NavBar />
-      <h1>Upload Audio File</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="file" accept="wav" onChange={handleOnChange} />
-        <button type="submit">Upload</button>
-      </form>
+      <div className="container mx-auto py-8">
+        <h1 className="text-3xl font-bold mb-4 text-gray-800">
+          Process Recorded Audio
+        </h1>
+        <div className="flex flex-col justify-items-center p-5">
+          <label
+            htmlFor="Heart sound prediction"
+            className="font-bold mb-2 text-gray-800"
+          >
+            Heart Sound Classification
+          </label>
+          <button
+            onClick={heartSoundPrediction}
+            className="bg-cyan-300 hover:bg-cyan-400 text-gray-800 font-bold py-2 px-4 rounded-md mb-4"
+          >
+            Predict
+          </button>
 
-      <h1>Process Recorded Audio</h1>
-      <div className="flex flex-col justify-items-center p-5">
-        <label htmlFor="Heart sound prediction">
-          Heart Sound Classification
-        </label>
-        <button
-          onClick={heartSoundPrediction}
-          className="bg-cyan-300 h-auto w-16 rounded-sm"
-        >
-          Predict
-        </button>
+          <label
+            htmlFor="Lungs sound prediction"
+            className="font-bold mb-2 text-gray-800"
+          >
+            Lungs Sound Classification
+          </label>
+          <button
+            onClick={lungsSoundPrediction}
+            className="bg-cyan-300 hover:bg-cyan-400 text-gray-800 font-bold py-2 px-4 rounded-md mb-4"
+          >
+            Predict
+          </button>
 
-        <label htmlFor="Lungs sound prediction">
-          Lungs Sound Classification
-        </label>
-        <button
-          onClick={lungsSoundPrediction}
-          className="bg-cyan-300 h-auto w-16 rounded-sm"
-        >
-          Predict
-        </button>
+          {/* result of the prediction */}
 
-        {/* result of the prediction  */}
-
-        {predictedLabel.status ? (
-          <div className="result">
-            <table>
-              <thead>
-                <tr>
-                  <th>Heart Result</th>
-                  <th>Lungs Result</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{predictedLabel.heart}</td>
-                  <td>{predictedLabel.lungs}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <h1>NO Result</h1>
-        )}
+          {predictedLabel.status ? (
+            <div className="result mt-8">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">
+                Prediction Results
+              </h2>
+              <table className="table-auto border-collapse border border-gray-400 bg-white rounded-md shadow-md">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="px-4 py-2 border border-gray-400">
+                      Heart Result
+                    </th>
+                    <th className="px-4 py-2 border border-gray-400">
+                      Lungs Result
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-4 py-2 border border-gray-400">
+                      {predictedLabel.heart}
+                    </td>
+                    <td className="px-4 py-2 border border-gray-400">
+                      {predictedLabel.lungs}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button
+                onClick={downloadAudio}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md mt-4"
+              >
+                Download Recorded Audio
+              </button>
+            </div>
+          ) : (
+            <h1 className="text-gray-800">NO Result</h1>
+          )}
+        </div>
       </div>
     </>
   );
 }
+
 export default ProcessAudio;

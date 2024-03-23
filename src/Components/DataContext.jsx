@@ -8,6 +8,8 @@ export const DataProvider = ({ children }) => {
   const [data, setData] = useState({
     user: null,
     idToken: null,
+    secret: null,
+    pswd: null,
   });
 
   return (

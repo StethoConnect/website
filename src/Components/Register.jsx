@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ngrok } from "../../ngrok";
 import NavPrev from "./NavPre";
+import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
@@ -29,9 +30,23 @@ function Register() {
 
       const data = await response.json();
       console.log("Registration successful:", data);
+      alert("Registration Successful");
+      const firstName = name;
+
+      axios
+        .post("http://localhost:5100/signup", {
+          name,
+          password,
+          email,
+          firstName,
+        })
+        .then((r) => console.log(r))
+        .catch((e) => console.log(JSON.stringify(e.response.data)));
+
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
+      alert("Registration Failed");
     }
   };
 

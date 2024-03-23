@@ -14,6 +14,7 @@ import ProcessAudio from "./Components/ProcessAudio";
 import GetPatient from "./Components/GetPatient";
 import LiveAudio from "./Components/LiveAudio";
 import { DataProvider } from "./Components/DataContext";
+import ChatPage from "./Components/ChatPage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             {/* <Route path="audio" element={<AudioPlayer/>} /> */}
             <Route path="patient-details" element={<GetPatient />} />
             <Route path="live-stream" element={<LiveAudio />} />
+            <Route path="chat" element={<ChatPage />} />
           </Routes>
         </BrowserRouter>
       </>

@@ -2,11 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ngrok } from "../../ngrok";
 import NavPrev from "./NavPre";
-import DataContext from "./DataContext";
 
 function Register() {
-  const { data, setData } = useContext(DataContext);
-
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

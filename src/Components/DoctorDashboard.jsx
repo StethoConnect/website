@@ -25,7 +25,7 @@ function DoctorDashboard() {
           </li>
           <li>
             <b> Token:</b>
-            {data.idToken}
+            {data.secret}
           </li>
         </ul>
 
@@ -90,7 +90,12 @@ function DoctorDashboard() {
             </div>
           </div>
         </div>
-
+        <button
+          className="mr-2 rounded bg-black px-4 py-2 font-semibold text-white hover:bg-blue-700"
+          onClick={() => navigate("/chat")}
+        >
+          Chat with Patients
+        </button>
         {/* <Scanner /> */}
       </div>
     </>

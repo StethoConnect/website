@@ -1,16 +1,13 @@
-import React, { useContext, useState } from "react";
-// import { useDispatch } from "react-redux";
+import React, { useContex, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { ngrok } from "../../ngrok";
 
+import NavPrev from "./NavPre";
 import DataContext from "./DataContext";
 
 function Login() {
   const navigate = useNavigate();
-
-  const { data, setData } = useContext(DataContext);
-  //
+  const { setData } = useContex(DataContext);
 
   // State for form inputs
   const [email, setEmail] = useState("");
@@ -34,13 +31,15 @@ function Login() {
       });
 
       if (response.ok) {
-        const data1 = await response.json();
+        const data = await response.json();
+        console.log("login sucess:", data);
         setData({
-          user: data1.token.displayName,
-          idToken: data1.token.idToken,
+          user: data.token.displayName,
+          idToken: data.token.idToken,
+          secret: null,
+          pswd: password,
         });
 
-        console.log("login sucess:", data.user, data.idToken);
         // Redirect to doctor dashboard
         navigate("/doctor-dashboard");
       } else {
@@ -54,6 +53,7 @@ function Login() {
 
   return (
     <>
+      <NavPrev />
       <div className="container mx-auto p-4">
         <h2 className="mb-4 text-xl font-bold">Doctor Login</h2>
 

@@ -1,6 +1,6 @@
-import { flaskapi } from "../../ngrok";
 import NavBar from "./NavBar";
 import { useState } from "react";
+import { flaskapi } from "../../ngrok";
 
 function ProcessAudio() {
   const [predictedLabel, setPredictedLabel] = useState({
@@ -33,7 +33,7 @@ function ProcessAudio() {
 
   const heartSoundPrediction = async () => {
     try {
-      const response = await fetch(fastapi +"/predictHeart", {
+      const response = await fetch(flaskapi + "/predictHeart", {
         method: "POST",
       });
 
@@ -55,7 +55,7 @@ function ProcessAudio() {
 
   const downloadAudio = () => {
     const link = document.createElement("a");
-    link.href = fastapi +"/download";
+    link.href = fastapi + "/download";
     link.download = "recording.wav";
     link.click();
   };
@@ -64,32 +64,32 @@ function ProcessAudio() {
     <>
       <NavBar />
       <div className="container mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-4 text-gray-800">
+        <h1 className="mb-4 text-3xl font-bold text-gray-800">
           Process Recorded Audio
         </h1>
         <div className="flex flex-col justify-items-center p-5">
           <label
             htmlFor="Heart sound prediction"
-            className="font-bold mb-2 text-gray-800"
+            className="mb-2 font-bold text-gray-800"
           >
             Heart Sound Classification
           </label>
           <button
             onClick={heartSoundPrediction}
-            className="bg-cyan-300 hover:bg-cyan-400 text-gray-800 font-bold py-2 px-4 rounded-md mb-4"
+            className="mb-4 rounded-md bg-cyan-300 px-4 py-2 font-bold text-gray-800 hover:bg-cyan-400"
           >
             Predict
           </button>
 
           <label
             htmlFor="Lungs sound prediction"
-            className="font-bold mb-2 text-gray-800"
+            className="mb-2 font-bold text-gray-800"
           >
             Lungs Sound Classification
           </label>
           <button
             onClick={lungsSoundPrediction}
-            className="bg-cyan-300 hover:bg-cyan-400 text-gray-800 font-bold py-2 px-4 rounded-md mb-4"
+            className="mb-4 rounded-md bg-cyan-300 px-4 py-2 font-bold text-gray-800 hover:bg-cyan-400"
           >
             Predict
           </button>
@@ -98,26 +98,26 @@ function ProcessAudio() {
 
           {predictedLabel.status ? (
             <div className="result mt-8">
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">
+              <h2 className="mb-4 text-2xl font-bold text-gray-800">
                 Prediction Results
               </h2>
-              <table className="table-auto border-collapse border border-gray-400 bg-white rounded-md shadow-md">
+              <table className="table-auto border-collapse rounded-md border border-gray-400 bg-white shadow-md">
                 <thead>
                   <tr className="bg-gray-200">
-                    <th className="px-4 py-2 border border-gray-400">
+                    <th className="border border-gray-400 px-4 py-2">
                       Heart Result
                     </th>
-                    <th className="px-4 py-2 border border-gray-400">
+                    <th className="border border-gray-400 px-4 py-2">
                       Lungs Result
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="px-4 py-2 border border-gray-400">
+                    <td className="border border-gray-400 px-4 py-2">
                       {predictedLabel.heart}
                     </td>
-                    <td className="px-4 py-2 border border-gray-400">
+                    <td className="border border-gray-400 px-4 py-2">
                       {predictedLabel.lungs}
                     </td>
                   </tr>
@@ -125,7 +125,7 @@ function ProcessAudio() {
               </table>
               <button
                 onClick={downloadAudio}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md mt-4"
+                className="mt-4 rounded-md bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600"
               >
                 Download Recorded Audio
               </button>

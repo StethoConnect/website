@@ -1,13 +1,12 @@
-import React, { useContex, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ngrok } from "../../ngrok";
 import NavPrev from "./NavPre";
 import DataContext from "./DataContext";
 
-
 function Login() {
   const navigate = useNavigate();
-  const { setData } = useContex(DataContext);
+  const { setData } = useContext(DataContext);
 
   // State for form inputs
   const [email, setEmail] = useState("");

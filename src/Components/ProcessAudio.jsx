@@ -1,3 +1,4 @@
+import { flaskapi } from "../../ngrok";
 import NavBar from "./NavBar";
 import { useState } from "react";
 
@@ -10,7 +11,7 @@ function ProcessAudio() {
 
   const lungsSoundPrediction = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5100/predictLungs", {
+      const response = await fetch(flaskapi + "/predictLungs", {
         method: "POST",
       });
 
@@ -32,7 +33,7 @@ function ProcessAudio() {
 
   const heartSoundPrediction = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5100/predictHeart", {
+      const response = await fetch(fastapi +"/predictHeart", {
         method: "POST",
       });
 
@@ -54,7 +55,7 @@ function ProcessAudio() {
 
   const downloadAudio = () => {
     const link = document.createElement("a");
-    link.href = "http://127.0.0.1:5100/download";
+    link.href = fastapi +"/download";
     link.download = "recording.wav";
     link.click();
   };

@@ -1,9 +1,9 @@
 import React, { useContex, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ngrok } from "../../ngrok";
-
 import NavPrev from "./NavPre";
 import DataContext from "./DataContext";
+
 
 function Login() {
   const navigate = useNavigate();

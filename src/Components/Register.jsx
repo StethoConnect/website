@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ngrok } from "../../ngrok";
+import { flaskapi, ngrok } from "../../ngrok";
 import NavPrev from "./NavPre";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ function Register() {
     const registrationData = { email, name, password };
 
     try {
-      const response = await fetch(ngrok + "/signup/", {
+      const response = await fetch(ngrok + "/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function Register() {
       const firstName = name;
 
       axios
-        .post("http://localhost:5100/signup", {
+        .post( flaskapi +  "/signup", {
           name,
           password,
           email,

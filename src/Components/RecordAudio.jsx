@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
-import { ngrok } from "../../ngrok";
+import { flaskapi, ngrok } from "../../ngrok";
 import DataContext from "./DataContext";
 import { useContext } from "react";
 
@@ -31,7 +31,7 @@ function RecordAudio() {
     try {
       setWave(false);
       setRecStatus(true);
-      const response = await fetch("http://127.0.0.1:5100/record", {
+      const response = await fetch(flaskapi + "/record", {
         method: "POST",
       });
       if (response.status === 200) {

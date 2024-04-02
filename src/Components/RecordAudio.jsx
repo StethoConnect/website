@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import { flaskapi, ngrok } from "../../ngrok";
@@ -13,19 +13,47 @@ function RecordAudio() {
   const [toggleState, setToggleState] = useState("left");
   const [audioURL, setAudioURL] = useState(null);
   const { data } = useContext(DataContext);
+  const [audioContext, setAudioContext] = useState(null);
+  const [audioSource, setAudioSource] = useState(null);
+
+  useEffect(() => {
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    setAudioContext(context);
+    return () => {
+      context.close();
+    };
+  }, []);
 
   const LiveAudio = async () => {
-    // setIsRecording(true);
-    // try {
-    //   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    //   const audioPlayer = new Audio();
-    //   audioPlayer.srcObject = stream;
-    //   audioPlayer.play();
-    // } catch (error) {
-    //   console.error('Error accessing microphone:', error);
-    // }
-    // setIsRecording(false);
+    setIsRecording(true);
+    try {
+      //   const response = await fetch("http://127.0.0.1:5454/audio");
+      //   const reader = response.body.getReader();
+      //   const mediaSource = new MediaSource();
+      //   const audioElement = new Audio();
+      //   audioElement.src = URL.createObjectURL(mediaSource);
+      //   audioElement.play();
+      //   mediaSource.addEventListener("sourceopen", () => {
+      //     const sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
+      //     const readStream = async () => {
+      //       const { done, value } = await reader.read();
+      //       if (done) {
+      //         mediaSource.endOfStream();
+      //         return;
+      //       }
+      //       sourceBuffer.appendBuffer(value);
+      //       readStream();
+      //     };
+      //     readStream();
+      //   });
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+    }
+    setIsRecording(false);
   };
+
+  // ... (the rest of the code remains the same)
+  //
 
   const startRecording = async () => {
     try {
@@ -145,8 +173,8 @@ function RecordAudio() {
               <h1 className=" m-0">Audio Recorded successfully.</h1>
               <div className="flex flex-col justify-between p-10 ">
                 {/* <button onClick={handleDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
-                  Download Recording
-                </button>*/}
+                      Download Recording
+                    </button>*/}
 
                 <button
                   onClick={() => navi("/process-audio")}

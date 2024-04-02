@@ -1,4 +1,7 @@
-const url = " https://e8dc-103-161-144-250.ngrok-free.app";
+const url = " http://192.168.93.32:8000";
+// local setpup
+// const url2 = "http://192.168.93.108:5100";
+// server setup
 const url2 = "http://192.168.93.48:5100";
 
 export { url as ngrok, url2 as flaskapi };

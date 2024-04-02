@@ -55,7 +55,7 @@ function ProcessAudio() {
 
   const downloadAudio = () => {
     const link = document.createElement("a");
-    link.href = fastapi + "/download";
+    link.href = flaskapi + "/download";
     link.download = "recording.wav";
     link.click();
   };

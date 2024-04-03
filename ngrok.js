@@ -1,4 +1,4 @@
-const url = " http://192.168.93.32:8000";
+const url = " http://192.168.93.32:5321";
 // local setpup
 // const url2 = "http://192.168.93.108:5100";
 // server setup

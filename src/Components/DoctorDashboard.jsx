@@ -25,7 +25,7 @@ function DoctorDashboard() {
           </li>
           <li>
             <b> Token:</b>
-            {data.secret}
+            {data.idToken}
           </li>
         </ul>
 

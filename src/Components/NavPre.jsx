@@ -15,6 +15,12 @@ function NavPrev() {
           <li>
             <Link to="/login">Login</Link>
           </li>
+          <li>
+            <Link to="/patient-signup">Patient Register</Link>
+          </li>
+          <li>
+            <Link to="/patient-login">patient Login</Link>
+          </li>
         </ul>
       </nav>
     </>

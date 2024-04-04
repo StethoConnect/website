@@ -1,16 +1,21 @@
 import React from "react";
 import { useContext } from "react";
-import NavBar from "./NavBar";
+
 
 import { PrettyChatWindow } from "react-chat-engine-pretty";
 import DataContext from "./DataContext";
 
-function ChatPage() {
-  const { data } = useContext(DataContext);
+function PChat() {
+  const { data ,logout} = useContext(DataContext);
   return (
     <div style={{ height: "95vh", width: "100vw",
     }}>
-      <NavBar />
+<button onClick={()=>{logout()
+// redirect to login component
+window.location.href = "/login";
+
+}}>Logout</button>
+    
       <PrettyChatWindow
         projectId="eaf9ac05-8c7e-4d49-b324-4ab5d35b4d50"
         username={data.user}
@@ -32,4 +37,4 @@ function ChatPage() {
     </div>
   );
 }
-export default ChatPage;
+export default PChat;

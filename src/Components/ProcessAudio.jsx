@@ -8,6 +8,8 @@ function ProcessAudio() {
     heart: null,
     lungs: null,
     status: false,
+    imgL:null,
+    imgH:null,
   });
 
   const { data } = useContext(DataContext);
@@ -15,20 +17,56 @@ function ProcessAudio() {
   const [selectedPatientId, setSelectedPatientId] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // const lungsSoundPrediction = async () => {
+  //   try {
+  //     const response = await fetch(flaskapi + "/predictLungs", {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         patient_id: selectedPatientId,
+  //         idToken: data.idToken,
+  //       }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       console.log(data);
+  //       setPredictedLabel((prev) => ({
+  //        ...prev,
+  //         lungs: data.predicted_class_label || null,
+  //         status: true,
+  //       }));
+  //     } else {
+  //       alert("Server Error");
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   const lungsSoundPrediction = async () => {
     try {
       const response = await fetch(flaskapi + "/predictLungs", {
         method: "POST",
-        body: JSON.stringify(selectedPatientId,data.idToken),
+        body: JSON.stringify({
+          patient_id: selectedPatientId,
+          idToken: data.idToken,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (response.status === 200) {
         const data = await response.json();
         console.log(data);
         setPredictedLabel((prev) => ({
-          ...prev,
-          lungs: data.predicted_class_label || null,
+         ...prev,
+          lungs: data.predicted_label || null,
           status: true,
+          imgL:data.graph_image_url,
         }));
       } else {
         alert("Server Error");
@@ -38,31 +76,51 @@ function ProcessAudio() {
     }
   };
 
-  const heartSoundPrediction = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("patient_id", selectedPatientId);
-      formData.append("idToken", data.idToken);
-      const response = await fetch(flaskapi + "/predictHeart", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
 
-      if (response.status === 200) {
-        const data = await response.json();
-        console.log(data);
-        setPredictedLabel((prev) => ({
-          ...prev,
-          heart: data.predicted_label || null,
-          status: true,
-        }));
-      } else {
-        alert("Server Error");
-      }
-    } catch (e) {
-      console.log(e);
+// for lung
+
+const heartSoundPrediction = async () => {
+  try {
+    const response = await fetch(flaskapi + "/predictHeart", {
+      method: "POST",
+      body: JSON.stringify({
+        patient_id: selectedPatientId,
+        idToken: data.idToken,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+      setPredictedLabel((prev) => ({
+       ...prev,
+        heart: data.predicted_label || null,
+        status: true,
+        imgH:data.graph_image_url,
+      }));
+    } else {
+      alert("Server Error");
     }
-  };
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const downloadAudio = () => {
     const link = document.createElement("a");
@@ -102,7 +160,7 @@ function ProcessAudio() {
     setSearchQuery(event.target.value);
   };
   const filteredPatients = patients.filter((patient) =>
-  patient.name ? patient.name.toLowerCase().includes(searchQuery.toLowerCase()) : false
+  patient.name? patient.name.toLowerCase().includes(searchQuery.toLowerCase()) : false
 );
 
 
@@ -169,7 +227,7 @@ function ProcessAudio() {
             </button>
 
             {/* result of the prediction */}
-            {predictedLabel.status && (
+           
               <div className="result mt-8">
                 <h2 className="mb-4 text-2xl font-bold text-gray-800">
                   Prediction Results
@@ -196,6 +254,28 @@ function ProcessAudio() {
                     </tr>
                   </tbody>
                 </table>
+
+                <div className="result mt-8">
+                <h2 className="mb-4 text-2xl font-bold text-gray-800">
+                  Processed Audio Images
+                </h2>
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="mb-2 font-bold text-gray-800">Heart</h3>
+                    {predictedLabel.imgH && (
+                      <img src={predictedLabel.imgH} alt="Heart Sound" />
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="mb-2 font-bold text-gray-800">Lungs</h3>
+                    {predictedLabel.imgL && (
+                      <img src={predictedLabel.imgL} alt="Lungs Sound" />
+                    )}
+                  </div>
+                </div>
+
+</div>
+
                 <button
                   onClick={downloadAudio}
                   className="mt-4 rounded-md bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600"
@@ -203,7 +283,7 @@ function ProcessAudio() {
                   Download Recorded Audio
                 </button>
               </div>
-            )}
+            
           </div>
         </div>
       </div>
@@ -212,3 +292,6 @@ function ProcessAudio() {
 }
 
 export default ProcessAudio;
+
+
+

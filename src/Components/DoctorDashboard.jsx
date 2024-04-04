@@ -1,6 +1,4 @@
-import React, { useState, useContext } from "react";
-import Scanner from "./Scanner"; // Adjust the path as necessary
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import DataContext from "./DataContext";
@@ -9,96 +7,59 @@ function DoctorDashboard() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
 
+  const handleViewPatientDetails = () => {
+    navigate("/patient-details");
+  };
+
+  const handleAddNewPatient = () => {
+    navigate("/add-patient");
+  };
+
+  const handleRecordAudio = () => {
+    navigate("/record-audio");
+  };
+
+  const handleChatWithPatients = () => {
+    navigate("/chat");
+  };
+
   return (
-    <>
+    <div className="bg-gray-900 min-h-screen text-white">
       <NavBar />
-      <div className="container mx-auto p-4">
-        <h2 className="bg-black text-center text-5xl text-white ">
-          Doctor Dashboard
-        </h2>
-        {/* <h1 className="px-4 font-mono font-bold">{user.displayName}</h1> */}
-
-        <ul>
-          <li>
-            <b> Name: </b>
-            {data.user}
-          </li>
-          <li>
-            <b> Token:</b>
-            {data.idToken}
-          </li>
-        </ul>
-
-        {/* patient details  */}
-        <div className="container mx-auto mt-8 flex  flex-col px-4">
-          <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow-lg">
-            <div className="px-6 py-4">
-              <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                Patient Details
-              </h2>
-              <p className="mb-4 text-gray-700">
-                View Previous/current patients details
-              </p>
-              <div className="flex justify-end">
-                <button
-                  className="mr-2 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-                  onClick={() => navigate("/patient-details")}
-                >
-                  view
-                </button>
-              </div>
+      <div className="container mx-auto py-8">
+        <h1 className="text-center text-5xl font-bold mb-8">Doctor Dashboard</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* View Patient Details */}
+          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer" onClick={handleViewPatientDetails}>
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2">Patient Details & History</h2>
+              <p className="text-gray-300">View Medical records</p>
             </div>
           </div>
 
-          {/* add new patients here  */}
-          <div className="mx-auto mt-5 max-w-md overflow-hidden rounded-lg bg-white shadow-lg">
-            <div className="px-6 py-4">
-              <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                Add new Patient Record{" "}
-              </h2>
-              <p className="mb-4 text-gray-700">
-                Enter details of new patients
-              </p>
-              <div className="flex justify-end">
-                <button
-                  className="mr-2 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-                  onClick={() => navigate("/add-patient")}
-                >
-                  Add New
-                </button>
-              </div>
+          {/* Add New Patient */}
+          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer" onClick={handleAddNewPatient}>
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2">Add New Patient Record</h2>
+              <p className="text-gray-300">Enter details of new patients</p>
             </div>
           </div>
 
-          {/* record audio through this  */}
-          <div className="mx-auto mt-5 max-w-md overflow-hidden rounded-lg bg-white shadow-lg">
-            <div className="px-6 py-4">
-              <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                Record{" "}
-              </h2>
-              <p className="mb-4 text-gray-700">
-                Record Audio from the stethoConnect steth
-              </p>
-              <div className="flex justify-end">
-                <button
-                  className="mr-2 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-                  onClick={() => navigate("/record-audio")}
-                >
-                  Record
-                </button>
-              </div>
+          {/* Record Audio */}
+          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer" onClick={handleRecordAudio}>
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-2">Record Audio</h2>
+              <p className="text-gray-300">Record audio from the stethoscope</p>
             </div>
           </div>
         </div>
-        <button
-          className="mr-2 rounded bg-black px-4 py-2 font-semibold text-white hover:bg-blue-700"
-          onClick={() => navigate("/chat")}
-        >
+
+        {/* Chat with Patients */}
+        <button className="bg-blue-500 rounded-lg px-6 py-3 mt-8 transition duration-300 ease-in-out hover:bg-blue-600" onClick={handleChatWithPatients}>
           Chat with Patients
         </button>
-        {/* <Scanner /> */}
       </div>
-    </>
+    </div>
   );
 }
 
